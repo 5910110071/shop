@@ -1,48 +1,42 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux"
-import { categoriesFetch } from "../actions"
+
 import Header from "../components/Header";
-import Monitor from "../components/monitor/Monitor";
+
 import Footer from "../components/Footer";
+
 import axios from "axios"
 
 class Category extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {products : ""};
+
   }
 
-  componentDidMount() {
-    /*this.setState({products : [
-      { productId: 1, productName: "สลัดผัก", unitPrice: "120", thumbnail: "/images/product/1.jpg" },
-      { productId: 2, productName: "ไก่ทอด", unitPrice: "90", thumbnail: "/images/product/2.jpg" },
-      { productId: 3, productName: "บิงซู", unitPrice: "200", thumbnail: "/images/product/3.jpg" },
-      { productId: 4, productName: "เฟรนฟราย", unitPrice: "140", thumbnail: "/images/product/4.jpg" },
-      { productId: 5, productName: "เค้ก 3 ชั้น", unitPrice: "200", thumbnail: "/images/product/5.jpg" },
-      { productId: 6, productName: "กาแฟ เฮลตี้ฟู้ด", unitPrice: "140", thumbnail: "/images/product/6.jpg" }
-  ]})*/
-  
-//   axios.get("http://localhost:3001/products").then(res=>{
-//     this.setState({
-//       products : res.data
-//     })
-//   })
-
+  renderCategories() {
+    return this.props.categories && this.props.categories.map(category => {
+      return (
+        <a key={category.category_id} className="dropdown-item" onClick={() => this.props.onGetProductFromCategory(category.category_id)} href="#">{category.category_name}</a>
+      )
+    })
   }
 
   render() {
     return (
       <div>
-        <Header />
-        <Monitor products={this.state.products} />
-        <Footer company="Olanlab" email="olan@olanlab.com" />
+        
+        <div class="dropdown">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown link
+  </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            {this.renderCategories()}
+          </div>
+        </div>
+        
       </div>
     );
   }
 }
-function mapStateToProps({categories}){
-    return {categories}
 
-}
-export default connect(mapStateToProps, { categoriesFetch })(Category);
+export default Category;

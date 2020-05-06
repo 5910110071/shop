@@ -3,10 +3,11 @@ import Header from "../components/Header";
 import Monitor from "../components/monitor/Monitor";
 import Footer from "../components/Footer";
 import axios from "axios"
+import Category from "./Category"
 
 import { Link } from 'react-router-dom'
 import { connect } from "react-redux"
-import { categoriesFetch, productsFetch,productsFetchFromCategory } from "../actions/"
+import { categoriesFetch, productsFetch, productsFetchFromCategory } from "../actions/"
 
 
 class Home extends Component {
@@ -14,6 +15,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = { products: "" };
+    this.getProductFromCategory = this.getProductFromCategory.bind(this)
   }
 
   componentDidMount() {
@@ -35,36 +37,18 @@ class Home extends Component {
     this.props.productsFetch()
 
   }
-  getProductFromCategory(id){
+  getProductFromCategory(id) {
     this.props.productsFetchFromCategory(id)
     //console.log(id)
-      
-  }
 
-  renderCategories() {
-    
-    return this.props.categories && this.props.categories.map(catygory => {
-      
-      return (
-        <a key = {catygory.category_id} className="dropdown-item" onClick={() => this.getProductFromCategory(catygory.category_id)} href="#">{catygory.category_name}</a>
-      )
-    })
   }
 
   render() {
-    console.log("this.props.products",this.props.products)
+    console.log("this.props.products", this.props.products)
     return (
       <div>
         <Header />
-        <div class="dropdown">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown link
-  </a>
-
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-           {this.renderCategories()}
-          </div>
-        </div>
+        <Category categories={this.props.categories } onGetProductFromCategory = {this.getProductFromCategory} />
         <Monitor products={this.props.products} />
         <Footer company="Olanlab" email="olan@olanlab.com" />
       </div>

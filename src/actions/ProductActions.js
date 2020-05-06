@@ -3,7 +3,7 @@ import { PRODUCTS_FETCH, PRODUCT_FETCH, PRODUCT_CREATE, PRODUCT_UPDATE } from ".
 
 export const productFetch = id => {
     return dispatch => {
-        axios.get("http://localhost:3001/products/" + id).then(
+        axios.get("http://localhost:3001/product/" + id).then(
             res => {
                 dispatch({ type: PRODUCT_FETCH, payload: res.data })
             }

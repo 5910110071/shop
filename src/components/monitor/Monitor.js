@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom"
 import Calculator from "./Calculator";
 import ProductList from "../product/ProductList";
 import axios from "axios";
@@ -12,6 +13,7 @@ class Monitor extends Component {
         this.delOrder = this.delOrder.bind(this);
         this.cancelOrder = this.cancelOrder.bind(this);
         this.confirmOrder = this.confirmOrder.bind(this);
+        this.selectProduct = this.selectProduct.bind(this);
 
     }
 
@@ -72,6 +74,10 @@ class Monitor extends Component {
         }
 
     }
+    selectProduct(product) {
+        this.props.history.push('product/'+product.product_id)
+        
+    }
 
     render() {
         console.log(this.state.orders)
@@ -84,7 +90,7 @@ class Monitor extends Component {
                 <h2 className = "text-center title">รายการอาหาร</h2>
                 <div className="row">
                     <div className="col-md-9 ">
-                        <ProductList products={this.props.products} onAddOrder={this.addOrder} />
+                        <ProductList products={this.props.products} onAddOrder={this.addOrder} onSelectProduct = {this.selectProduct} />
                     </div>
                     <div className="col-md-3">
                         <Calculator
@@ -100,4 +106,4 @@ class Monitor extends Component {
     }
 }
 
-export default Monitor; 
+export default withRouter(Monitor); 
