@@ -16,6 +16,7 @@ class Product extends Component {
     }
     componentDidMount() {
         this.props.productsFetch()
+       
     }
     delProduct(product) {
         this.props.productsDelete(product.id)
@@ -49,8 +50,8 @@ class Product extends Component {
         )
     }
 }
-function mapStateToProps({ products }) {
-    return { products };
+function mapStateToProps({ products  }) {
+    return { products  };
 
 }
 export default withRouter(connect(mapStateToProps, { productsFetch, productsDelete })(Product))

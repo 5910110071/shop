@@ -11,6 +11,16 @@ export const productFetch = id => {
     }
 }
 
+export const productsFetchFromCategory = id => {
+    return dispatch => {
+        axios.get("http://localhost:3001/productsFromCategory/" + id).then(
+            res => {
+                dispatch({ type: PRODUCTS_FETCH, payload: res.data })
+            }
+        )
+    }
+}
+
 export const productsFetch = () => {
     return dispatch => {
         axios.get("http://localhost:3001/products").then(

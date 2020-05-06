@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom'
+import { connect } from "react-redux"
+import { categoriesFetch } from "../actions"
 
 class Header extends Component {
   constructor(props) {
@@ -9,6 +11,8 @@ class Header extends Component {
 
   componentDidMount() {
     this.timerID = setInterval(() => this.tick(), 1000);
+
+    this.props.categoriesFetch()
   }
 
   componentDidUpdate() { }
@@ -29,7 +33,7 @@ class Header extends Component {
           <div className="col-md-8 text-left">
             <h1 className="text-success">
               <img style={{ height: 70 }} src="/images/logo/logo.png" alt="" />{" "}
-              เฮลตี้คาเฟ่2 {" "}
+              เฮลตี้ คาเฟ่2 {" "}
             </h1>
           </div>
           <div className="col-md-4 text-right">
@@ -43,6 +47,17 @@ class Header extends Component {
               <li className="list-inline-item title"><Link className="text-success" to="/product">สิ้นค้า</Link></li>
               <li className="list-inline-item title"><Link className="text-success" to="/about">เกี่ยวกับเรา</Link></li>
             </ul>
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown link
+  </a>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -52,4 +67,10 @@ class Header extends Component {
   }
 }
 
-export default Header;
+function mapStateToProps({ categories }) {
+  //console.log(categories)
+  return { categories }
+}
+
+
+export default connect(mapStateToProps, { categoriesFetch })(Header);

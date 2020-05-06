@@ -1,2 +1,3 @@
 export * from "./OrderActions"
 export * from "./ProductActions"
+export * from "./CategoryAction"
