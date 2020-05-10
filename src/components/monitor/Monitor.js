@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom"
 import Calculator from "./Calculator";
 import ProductList from "../product/ProductList";
-import axios from "axios";
+import axios from "axios"; 
 
 class Monitor extends Component {
 
@@ -87,7 +87,7 @@ class Monitor extends Component {
                     <div className="alert alert-secondary title text-right" role="alert">
                         {this.state.msg}
                     </div>}
-                <h2 className = "text-center title">รายการอาหาร</h2>
+                <h2 className = "title">รายการสินค้า</h2>
                 <div className="row">
                     <div className="col-md-9 ">
                         <ProductList products={this.props.products} onAddOrder={this.addOrder} onSelectProduct = {this.selectProduct} />
