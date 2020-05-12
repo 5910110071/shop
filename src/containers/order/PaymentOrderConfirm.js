@@ -19,10 +19,10 @@ class PaymentOrderComfirm extends Component {
         return (
             <div>
                 <Header />
-                <div className="container col-md-5">
+                <div className="">
 
-                    <div>
-                        <h2>แจ้งชำระเงิน</h2>
+                  
+                        <h2 className = "text-center">แจ้งชำระเงิน</h2>
                         {/* {
                             products.saved &&
                             <div className="alert alert-secondary title" role="alert">
@@ -31,7 +31,7 @@ class PaymentOrderComfirm extends Component {
                         } */}
 
                         <PaymentForm onPaymentSubmit={() => paymentPost(formValues) } orderPayment = {orderPayment} />
-                    </div>
+                    
 
 
 

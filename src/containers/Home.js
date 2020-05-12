@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from "../components/Header";
-import Monitor from "../components/monitor/Monitor";
+import Monitor from "../components/Monitor";
 import Footer from "../components/Footer";
 import axios from "axios"
 
@@ -21,7 +21,7 @@ class Home extends Component {
     //console.log("this.props.match", this.props.match.path)
   }
   
-  render() {
+  render() { 
     console.log("this.props.products", this.props.products)
     return (
       <div>

@@ -31,6 +31,7 @@ export const productsFetch = () => {
     }
 }
 
+/*
 export const productsDelete = id => {
     return dispatch => {
         axios.delete("http://localhost:3001/products/" + id).then(
@@ -60,4 +61,4 @@ export const productUpdate = (id,values) => {
             dispatch({type : PRODUCT_UPDATE});
         })
     }
-}
+}*/

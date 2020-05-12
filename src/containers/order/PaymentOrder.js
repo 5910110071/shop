@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../../components/Header'
-import Footer from '../../components/Footer' 
+import Footer from '../../components/Footer'
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom"
 
@@ -22,24 +22,25 @@ class PaymentOrder extends Component {
             const date = new Date(order.orderDate)
             return (
                 <div key={order.id} className="col-md-12">
-                    
-                    <hr/>
-                    <p className="text-right">
-                        <button className="btn btn-danger btn-sm title" onClick={() => this.delOrder(order)}>X</button>
-                    </p>
-                    <button onClick = {() => this.props.history.push('/paymentOrderConfirm/'+order.id)}>แจ้งชำระเงิน</button>
-                    <h5>วันที่ {date.toLocaleDateString()} {date.toLocaleTimeString()}</h5>
-                    <ul>
-                        {order.orders && order.orders.map(record => {
-                            return (
-                                <div key={record.product.product_id}>
-                                    <img src={record.product.product_thumbnail} class="card-img-top img-thumbnail mb-2 mr-2 " Style="width: 100px;" alt="..." />{record.product.product_name} x {record.quantity} = {record.product.product_price * record.quantity}
-                                </div>
-                            )
-                        })}
-                    </ul>
-                    <p className="title text-right">ยอมรวม {order.totalPrice}</p>
-                   
+                    <div className="card mb-4 ">
+                        <h5 className="text-center mt-2 ">วันที่ {date.toLocaleDateString()} {date.toLocaleTimeString()}</h5>
+                        <div className="row">
+                            {order.orders && order.orders.map(record => {
+                                return (
+                                    <div key={record.product.product_id} className = "col-3 d-flex flex-column bd-highlight mb-3" >
+                                        <img src={record.product.product_thumbnail} class=" card-img-top img-thumbnail mb-2  rounded mx-auto d-block " Style="width: 100px;" alt="..." />
+                                        <h6 className = "text-center title ">{record.product.product_name} x {record.quantity} = {record.product.product_price * record.quantity} บาท</h6>
+                                    </div>
+                                )
+                            })}
+                        </div>
+
+                        <p className="title text-right mr-2">ยอดรวม {order.totalPrice} บาท</p>
+                        <div class="d-flex justify-content-end" >
+                            <button className="btn btn-secondary btn-sm title mr-2 mb-2" onClick={() => this.delOrder(order)}>ยกเลิกรายการ</button>
+                            <button className="btn btn-danger btn-sm title mr-2 mb-2" onClick={() => this.props.history.push('/paymentOrderConfirm/' + order.id)}>แจ้งชำระเงิน</button>
+                        </div>
+                    </div>
                 </div>
             )
         })
@@ -48,8 +49,8 @@ class PaymentOrder extends Component {
         return (
             <div>
                 <Header />
-                <div className="container-fluid">
-                    <h1>รายการที่ยังไม่ชำระเงิน</h1>
+                <div className="container">
+                    <h2 className ="text-center">รายการที่ยังไม่ชำระเงิน</h2>
                     <div className="row">
                         {this.showOrders()}
 

@@ -1,9 +1,8 @@
 import React from "react";
-
 const Footer = (props) => {
     const {company, email} = props;
     return (
-        <div className="container-fluid">
+        <div className="container">
             <hr />
             <div className="text-center title text-uppercase">
                 <small>
@@ -13,5 +12,4 @@ const Footer = (props) => {
         </div>
     )
 }
-
 export default Footer;

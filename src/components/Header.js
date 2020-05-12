@@ -7,11 +7,11 @@ import { categoriesFetch, productsFetchFromCategory, productsFetch } from "../ac
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { date: new Date() };
+    //this.state = { date: new Date() };
   }
 
   componentDidMount() {
-    this.timerID = setInterval(() => this.tick(), 1000);
+    //this.timerID = setInterval(() => this.tick(), 1000);
 
     this.props.categoriesFetch()
 
@@ -22,14 +22,14 @@ class Header extends Component {
 
   componentDidUpdate() { }
 
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
+  // componentWillUnmount() {
+  //   clearInterval(this.timerID);
+  // }
 
-  tick() {
-    // this.state = {date : new Date()};
-    this.setState({ date: new Date() });
-  }
+  // tick() {
+  //   // this.state = {date : new Date()};
+  //   this.setState({ date: new Date() });
+  // }
 
 
   renderCategories() {
@@ -55,7 +55,7 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container ">
         <div className="row">
           <div className="col-md-8 text-left">
             <h1 className="text-danger">
@@ -63,43 +63,46 @@ class Header extends Component {
               eOnlineShop {" "}
             </h1>
           </div>
-          <div className="col-md-4 text-right">
+          {/* <div className="col-md-4 text-right">
             <h5 className="text-muted mt-4">
               {this.state.date.toLocaleTimeString()}
             </h5>
-          </div>
+          </div> */}
 
         </div>
-        < div className="row">
-          <div className="col-12">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <a class="navbar-brand title" href="#">รายการ</a>
+        < div className="row ">
+          <div className="col-12 ">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light  ">
+              <a class="navbar-brand title" href="#"><h4>รายการ</h4></a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
 
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+              <div class="collapse navbar-collapse  " id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto ">
                   <li class="nav-item active">
-                    <Link class="nav-link title" to="/">หน้าหลัก <span class="sr-only">(current)</span></Link>
+                    <Link class="nav-link title  mr-2" to="/">หน้าหลัก<h4></h4> <span class="sr-only">(current)</span></Link>
                   </li>
                   <li class="nav-item active">
-                    <Link class="nav-link title" to="/order">รายการสั่งชื้อ <span class="sr-only">(current)</span></Link>
+                    <Link class="nav-link title  mr-2" to="/order">รายการสั่งชื้อ<h4></h4> <span class="sr-only">(current)</span></Link>
                   </li>
-                  <li class="nav-item active">
-                    <Link class="nav-link title" to="/product">สินค้า <span class="sr-only">(current)</span></Link>
-                  </li>
-                  <li class="nav-item active">
+
+                 
+                  {/* <li class="nav-item active">
                     <Link class="nav-link title" to="/about">เกี่ยวกับเรา <span class="sr-only">(current)</span></Link>
+                  </li>  */}
+
+                  <li class="nav-item active">
+                    <Link class="nav-link title  mr-2" to="/paymentOrder">แจ้งชำระเงิน<h4></h4> <span class="sr-only">(current)</span></Link>
                   </li>
 
                   <li class="nav-item active">
-                    <Link class="nav-link title" to="/paymentOrder">แจ้งชำระเงิน <span class="sr-only">(current)</span></Link>
+                    <Link class="nav-link title  mr-2 " to="/paymentMornitor">ตรวจสอบรายการสั่งซื้อ<h4></h4><span class="sr-only">(current)</span></Link>
                   </li>
 
                   {this.props.showCategoryAndSearch &&
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle title" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item dropdown ">
+                      <a class="nav-link dropdown-toggle title " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         หมวดหมู่สินค้า
                     </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -113,7 +116,7 @@ class Header extends Component {
                 {this.props.showCategoryAndSearch &&
                   <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">ค้นหา</button>
                   </form>
                 }
 
