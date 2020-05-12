@@ -63,7 +63,7 @@ class Order extends Component {
                     <hr />
 
                     <button className="btn  btn-danger title" onClick={() => this.confirmOrder()} >ยืนยัน</button>
-                    <button className="btn  btn-secondary title" onClick={() => this.props.onCancelOrder()} >ยกเลิก</button>
+                    {/* <button className="btn  btn-secondary title" onClick={() => this.props.onCancelOrder()} >ยกเลิก</button> */}
                 </div>
 
                 <Footer />

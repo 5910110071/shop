@@ -4,25 +4,25 @@ import Footer from '../../components/Footer'
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom"
 
-import { ordersFetch, orderDelete, ordersPaymentFetch } from '../../actions/'
+import { ordersFetch, orderDelete, paymentFetch } from '../../actions'
 import axios from "axios"
-class PaymentOrder extends Component {
+class PaymentMornitor extends Component {
     constructor(props) {
         super(props)
     }
     componentDidMount() {
-        this.props.ordersPaymentFetch()
+        this.props.paymentFetch()
+        
         // axios.get("http://localhost:3002/orders").then(res =>{
         //     console.log("res.data",res.data)
         // })
 
     }
     showOrders() {
-        return this.props.orderPayment && Array.isArray(this.props.orderPayment) && this.props.orderPayment.map(order => {
+        return this.props.payments && Array.isArray(this.props.payments) && this.props.payments.map(order => {
             const date = new Date(order.orderDate)
             return (
                 <div key={order.id} className="col-md-12">
-                    
                     <hr/>
                     <p className="text-right">
                         <button className="btn btn-danger btn-sm title" onClick={() => this.delOrder(order)}>X</button>
@@ -52,9 +52,7 @@ class PaymentOrder extends Component {
                     <h1>รายการที่ยังไม่ชำระเงิน</h1>
                     <div className="row">
                         {this.showOrders()}
-
                     </div>
-
                 </div>
                 <Footer />
             </div>
@@ -62,7 +60,8 @@ class PaymentOrder extends Component {
         )
     }
 }
-function mapStateToprops({ orderPayment }) {
-    return { orderPayment }
+function mapStateToprops({ payments }) {
+    console.log("payments",payments)
+    return { payments }
 }
-export default withRouter(connect(mapStateToprops, { ordersPaymentFetch })(PaymentOrder))
+export default withRouter(connect(mapStateToprops, { paymentFetch })(PaymentMornitor))

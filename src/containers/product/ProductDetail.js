@@ -14,7 +14,19 @@ class ProductDetail extends Component {
         if (this.props.match.params.id) {
             this.props.productFetch(this.props.match.params.id)
         }
+
+       /* let findOrder = this.props.orders.orders.find(order => order.product.product_id == this.props.match.params.id);
+        if (findOrder) {
+            this.setState({
+                count: findOrder.quantity
+            })
+        }
+        else
+            this.setState({
+                count: 0
+            })*/
     }
+
     addOrder(product) {
         this.props.orderAdd(product)
 
@@ -33,8 +45,8 @@ class ProductDetail extends Component {
 
 
 
-
-        /*this.setState({
+       /*if(this.state.count > 0)
+        this.setState({
             count: this.state.count - 1
         })*/
 
@@ -84,10 +96,13 @@ class ProductDetail extends Component {
                                                 <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="" onClick={() => this.addOrder(product)}>
                                                     <span class="glyphicon glyphicon-plus">+</span>
                                                 </button>
+    
                                             </span>
                                         </div>
 
+
                                     </div>
+                                    
                                 </div>
                             </div>
                         )
