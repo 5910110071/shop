@@ -15,24 +15,44 @@ class ProductDetail extends Component {
         if (this.props.match.params.id) {
             this.props.productFetch(this.props.match.params.id)
         }
+
+        /* let findOrder = this.props.orders.orders.find(order => order.product.product_id == this.props.match.params.id);
+         if (findOrder) {
+             this.setState({
+                 count: findOrder.quantity
+             })
+         }
+         else
+             this.setState({
+                 count: 0
+             })*/
     }
 
     addOrder(product) {
         this.props.orderAdd(product)
 
-    } 
+    }
 
     delOrder(id) {
 
-        let findOrder = this.props.orderBuffer.orders.find(order => order.product.product_id == id);
+        let findOrder = this.props.orders.orders.find(order => order.product.product_id == id);
         if (findOrder) {
             this.props.orderDelete(id)
         }
+
+
+
+
+        /*if(this.state.count > 0)
+         this.setState({
+             count: this.state.count - 1
+         })*/
+
+
     }
 
     getQuantity(product) {
-        console.log("this.props.orders.orders",this.props.orderBuffer.orders)
-        let findOrder = this.props.orderBuffer.orders.find(order => order.product.product_id == product.product_id);
+        let findOrder = this.props.orders.orders.find(order => order.product.product_id == product.product_id);
         if (findOrder) {
             return findOrder.quantity;
         } else {
@@ -41,12 +61,13 @@ class ProductDetail extends Component {
     }
 
 
+
     render() {
         return (
             <div>
-                <Header menu = {this.props.match.path}/>
-                <div className="container" style ={{minHeight : '79vh', backgroundColor:'#f5f5f5'}}>
-                    <h2 className = "text-center pt-3 mb-3">รายละเอียดสินค้า</h2>
+                <Header />
+                <div className="container">
+                    <h2>รายละเอียดสินค้า</h2>
                     {this.props.products.map(product => {
                         return (
                             <div className="card mb-3 ">
@@ -99,9 +120,9 @@ class ProductDetail extends Component {
     }
 }
 
-function mapStateToProps({ products, orderBuffer }) {
-    console.log("orders", orderBuffer)
-    return { products, orderBuffer }
+function mapStateToProps({ products, orders }) {
+    console.log("products", products)
+    return { products, orders }
 }
 
 export default withRouter(connect(mapStateToProps, { productFetch, orderAdd, orderDelete })(ProductDetail))

@@ -6,6 +6,10 @@ class Monitor extends Component {
     constructor(props) {
         super(props);
     }
+    componentDidMount(){
+        console.log("this.props.match", this.props.match.path)
+
+    }
 
     selectProduct(product) {
         this.props.history.push('product/' + product.product_id)
@@ -16,48 +20,23 @@ class Monitor extends Component {
         return (
             this.props.products &&
             this.props.products.map(product => (
-                // <div className="col-md-2">
-                //     <img className="img-fluid img-thumbnail" src={product.product_thumbnail} />
-                //     <h5 className="mt-2">{product.product_name}</h5>
-                //     <p className="title text-right" >{product.product_price} THB</p>
-                //     <button className="btn btn-block btn-danger btn-sm mt-2" onClick={() => this.selectProduct(product)}>เลือก</button>
-                //     <hr />
-                // </div>
-
+        
                 <div class="col-md-3 btn" onClick={() => this.selectProduct(product)} >
-                    <div className = "card bg-danger text-white">
+                    <div className = "card bg-white text-black border border-danger" style={{backgroundColor:'#f5f5f5'}}>
                         <img src={product.product_thumbnail} class="card-img-top" alt="..." />
                         <div class="d-flex justify-content-between mt-2 ml-2 mr-2">
                             <h5 className="text-left">{product.product_name}</h5>
-                            <h5 className="title text-right" >{product.product_price} บาท</h5>
-                            {/* <button className="btn btn-block btn-danger btn-sm mt-2" onClick={() => this.selectProduct(product)}>เลือก</button> */}
+                            <h5 className="title text-right text-danger" >{product.product_price} บาท</h5>
                         </div>
                     </div>
-
                 </div>
-
-                // <div key={order.product_id} class="col-3 text-right text-success title">
-                //     <div class="card" >
-                //         <img src={order.product.product_thumbnail} class="card-img-top" alt="..." />
-                //         <div class="card-body">
-                //             <h5 class="card-title">{order.product.product_name} x {order.quantity} = {order.product.product_price * order.quantity}</h5>
-
-                //             <button className="btn btn-light btn-sm" onClick={() => this.cancelOrder(order.product)} >X</button>
-                //         </div>
-                //     </div>
-                // </div>
-
-
-
-
-
             ))
-        );
+        ); 
     }
 
     render() {
         return (
-            <div className="container">
+            <div className="container pt-3 "style ={{minHeight : '79vh', backgroundColor:'#f5f5f5'}}>
                 <h2 className="text-center">รายการสินค้า</h2>
                 <div className="row">
                     <div className="col-md-12">
