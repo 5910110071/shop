@@ -70,9 +70,6 @@ class Order extends Component {
                         </div>
                     }
 
-
-
-
                     <div class="row d-flex justify-content-center">
                         {this.showOrders2(this.props.orderBuffer.orders)}
                     </div>

@@ -77,10 +77,10 @@ class ProductDetail extends Component {
                         return (
                             <div className="card mb-3 ">
                                 <div className="row no-gutters">
-                                    <div className="col-md-4">
+                                    <div className="col-md-5">
                                         <img src={product.product_thumbnail} className="card-img" alt="..." />
                                     </div>
-                                    <div className="col-md-8">
+                                    <div className="col-md-7">
                                         <div className="card-body">
                                             <h3 className="card-title">{product.product_name}</h3>
                                             <p className="card-text">รายละเอียดสินค้า : {product.product_detail}</p>
@@ -88,34 +88,32 @@ class ProductDetail extends Component {
                                             <p className="card-text">ราคา : {product.product_price} บาท</p>
                                         </div>
                                         {/* <h5 className="container text-right ">เพิ่มสินค้าลงตะกร้า</h5> */}
-                                        <div className="container input-group d-flex justify-content-end ">
+
+
+                                        <div className="container input-group d-flex justify-content-end   ">
                                             <h5 className="text-right mr-2">จำนวน :  </h5>
-                                            <span class="input-group-btn">
+                                            <span class="input-group-btn ">
                                                 <button type="button" class="quantity-left-minus btn btn-secondary btn-number" data-type="minus" data-field="" onClick={() => this.delOrder(product.product_id)}>
                                                     <span class="glyphicon glyphicon-minus">-</span>
                                                 </button>
                                             </span>
                                             <input type="text" id="quantity" name="quantity" class="form-control input-number col-1 text-center" value={this.getQuantity(product)} min="1" max="10" />
                                             <span class="input-group-btn">
-                                                <button type="button" class="quantity-right-plus btn btn-secondary btn-number" data-type="plus" data-field="" onClick={() => this.addOrder(product)}>
+                                                <button type="button" class="quantity-right-plus btn btn-secondary btn-number mr-2" data-type="plus" data-field="" onClick={() => this.addOrder(product)}>
                                                     <span class="glyphicon glyphicon-plus">+</span>
                                                 </button>
                                             </span>
+                                           
                                         </div>
+                                        
 
-                                        <div className=" mr-3 mt-3 d-flex justify-content-end">
-
-                                            {/* <button className="btn btn-secondary mr-3">ยกเลิก</button> */}
-
-
-
-                                            <button className="btn btn-danger" onClick={() => this.props.orderConfirm(product)}>เพิ่มลงตะกร้า</button>
-                                            {/* <div className="d-flex flex-column bd-highlight mb-3" onClick={() => this.props.history.push('/order/')}>
-                                                <img src="https://cdn1.iconfinder.com/data/icons/ecommerce-1-9/48/2-512.png" class="ml-5 mt-2" Style="width: 70px;" alt="..." />
-                                                <h5 className="">กดดูสินค้าในตะกร้า</h5>
-                                            </div> */}
+                                        <div className=" mr-4 mt-3 d-flex justify-content-end">
+                                            <button className="btn btn-danger" onClick={() => this.props.orderConfirm(product)}>เพิ่มลงตะกร้า </button>
                                         </div>
-
+                                        
+                                        <div className=" btn d-flex justify-content-end bd-highlight mb-3 mr-5" onClick={() => this.props.history.push('/order/')}>
+                                            <img src="https://cdn1.iconfinder.com/data/icons/ecommerce-1-9/48/2-512.png" class="mt-2" Style="width: 50px;" alt="..." />
+                                        </div>
 
                                         {/* {this.getQuantity(product) > 0 && <div className="btn col-12 d-flex flex-row-reverse bd-highlight">
                                             <div className="d-flex flex-column bd-highlight mb-3" onClick={() => this.props.history.push('/order/')}>
