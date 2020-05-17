@@ -7,6 +7,7 @@ import PaymentForm from "../../containers/order/PaymentForm"
 
 import { orderPaymentFetch , ordersPaymentPut } from '../../actions/'
 
+
 class PaymentOrderComfirm extends Component {
     componentDidMount() {
         if (this.props.match.params.id) {
@@ -17,6 +18,7 @@ class PaymentOrderComfirm extends Component {
     }
 
     onSubmit(formValues) {
+
         formValues.status = "ชำระเงินแล้ว"
         console.log("formValues", formValues)
         this.props.ordersPaymentPut(formValues.id,formValues)

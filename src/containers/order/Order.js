@@ -13,9 +13,9 @@ class Order extends Component {
     componentDidMount() {
         this.props.ordersFetch()
         console.log("this.props.match 2 ", this.props.match.path)
+        console.log("user id ", this.props.user)
 
     }
-
 
     cancelOrder(product) {
         console.log("cancelOrder", product)
@@ -29,19 +29,23 @@ class Order extends Component {
         } else {
             return orders.map(order => {
                 return (
-                    <div key={order.product_id} class="col-3 text-right text-success title">
-                        <div class="card border border-danger" >
-                            <img src={order.product.product_thumbnail} class="card-img-top" alt="..." />
-                            <div class=" mt-2 ml-2 mr-2">
-                                <h5 className="text-center title ">{order.product.product_name}</h5>
-                                <h5 className="text-center title ">จำนวน : {order.quantity}</h5>
-                                <h5 className="text-center title ">ราคา : {order.product.product_price * order.quantity} บาท</h5>
-
-                                <button className="btn btn-danger mb-2 " onClick={() => this.cancelOrder(order.product)} >X</button>
+                    <>{
+                        order.confirm && <div key={order.product_id} class="col-3 text-right text-success title mt-3">
+                            <div class="card border border-danger" >
+                                <img src={order.product.product_thumbnail} class="card-img-top" alt="..." />
+                                <div class=" mt-2 ml-2 mr-2">
+                                    <h5 className="text-center title ">{order.product.product_name}</h5>
+                                    <h5 className="text-center title ">จำนวน : {order.quantity}</h5>
+                                    <h5 className="text-center title ">ราคา : {order.product.product_price * order.quantity} บาท</h5>
+                                    <div className="d-flex justify-content-center">
+                                        <button className="btn btn-danger mb-2 " onClick={() => this.cancelOrder(order.product)} >X</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
 
+                    </>
                 )
             })
         }
@@ -81,19 +85,15 @@ class Order extends Component {
                             </div>
                         </>
                     }
-
-
-
                 </div>
-
                 <Footer />
             </div>
         );
     }
 
 }
-function mapStateToProps({ orderBuffer }) {
-    console.log("orders", orderBuffer)
-    return { orderBuffer }
+function mapStateToProps({ orderBuffer , user }) {
+    console.log("orders", orderBuffer ,user)
+    return { orderBuffer ,user }
 }
 export default connect(mapStateToProps, { ordersFetch, orderDelete, ordersPost, orderCancel })(Order)

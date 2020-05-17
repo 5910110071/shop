@@ -34,13 +34,13 @@ export const ordersPaidFetch = () => { // ตอนนี้ทุก order จ�
 export const orderPaidDelete = id => {
     return dispatch => {
         axios.delete("http://localhost:3002/orders/" + id).then(
-            res => {
+            res => { 
                 axios.get("http://localhost:3002/orders").then(
                     res => {
-                        dispatch({ type: ORDERS_PAID_DELETE, payload: res.data })
-                    }
-                )
-            }
+                        dispatch({ type: ORDERS_PAID_DELETE, payload: res.data }) 
+                    } 
+                ) 
+            } 
         )
     }
 }

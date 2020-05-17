@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom'
+
 import { connect } from "react-redux"
 import { categoriesFetch, productsFetchFromCategory, productsFetch } from "../actions"
 
@@ -46,7 +47,6 @@ class Header extends Component {
   getProductFromCategory(id) {
     this.props.productsFetchFromCategory(id)
     //console.log(id)
-
   }
 
   getProducts() {
@@ -57,7 +57,7 @@ class Header extends Component {
 
   render() {
     return (
-      <>
+      <div>
         <div className="row bg-danger">
           <div className="container">
 
@@ -128,7 +128,7 @@ class Header extends Component {
             </div>
           
         </div>
-      </>
+      </div>
 
     );
   }

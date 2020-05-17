@@ -1,6 +1,7 @@
 import axios from "axios"
-import { ORDERS_FETCH, ORDER_ADD, ORDER_DELETE, ORDER_POST, ORDER_CANCEL, ORDER_CONFIRM, ORDERS_WAIT_PAYMENT, ORDERS_PAYMENT, ORDER_PAYMENT_FETCH, ORDER_RESET, ORDERS_PAID, ORDERS_PAID_DELETE, ORDER_BUFFER } from "./types"
+import { SET_USER, GET_USER, RESET_USER } from "./types"
 
+/*
 export const ordersPost = ({ orders, totalPrice }) => { // ตอนนี้ทุก order จะส่งมาที่เดียวกันเพราะยังมีการการ login เพื่อระบุตัวตน user
     console.log("orders",orders)
     orders = orders.filter(order => order.confirm == true);
@@ -12,14 +13,35 @@ export const ordersPost = ({ orders, totalPrice }) => { // ตอนนี้ท
         )
     }
 }
+*/
 
-export const ordersFetch = () => {
+export const setUser = (user) => {
     return dispatch => {
-        dispatch({ type: ORDERS_FETCH })
+        axios.post("http://localhost:3002/users",user).then( //ต้องแก้โดยการส่งไปที่ DB ของ user แต่ละคน หลังจากนั้นจะดึง ข้อมูลของ User แต่ละคนมาแสดงว่ายืนยันรายการอะไรไปแล้วมั้ง 
+            res => {
+                dispatch({ type: SET_USER, payload: res.data })
+            }
+        )
     }
 }
 
+export const getUser = (id) => {
+    return dispatch => {
+        axios.get("http://localhost:3002/users/" + id).then( //ต้องแก้โดยการส่งไปที่ DB ของ user แต่ละคน หลังจากนั้นจะดึง ข้อมูลของ User แต่ละคนมาแสดงว่ายืนยันรายการอะไรไปแล้วมั้ง 
+            res => {
+                dispatch({ type: GET_USER, payload: res.data })
+            }
+        )
+    }
+}
 
+export const resetUser = () => {
+    return dispatch => {
+        dispatch({ type: RESET_USER })
+    }
+}
+
+/*
 export const orderCancel = product => {
     return dispatch => {
         dispatch({ type: ORDER_CANCEL, payload: product })
@@ -44,3 +66,4 @@ export const orderDelete = id => {
     }
 }
 
+*/
