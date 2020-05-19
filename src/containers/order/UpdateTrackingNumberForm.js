@@ -42,7 +42,7 @@ class UpdateTrackingNumberForm extends Component {
                         {this.props.orders.orders && this.props.orders.orders.map(record => {
                             return (
                                 <div key={record.product.product_id} className="col-2 d-flex flex-column bd-highlight mb-2">
-                                    <img src={record.product.product_thumbnail} class="card-img-top img-thumbnail mb-2  rounded mx-auto d-block" Style="width: 100px;" alt="..." />
+                                    <img src={record.product.product_image} class="card-img-top img-thumbnail mb-2  rounded mx-auto d-block" Style="width: 100px;" alt="..." />
                                     <h6 className="text-center title ">{record.product.product_name}</h6>
                                     <h6 className="text-center title ">จำนวน : {record.quantity}</h6>
                                     <h6 className="text-center title ">ราคา : {record.product.product_price * record.quantity} บาท</h6>
@@ -101,7 +101,7 @@ function validate(values) {
     return errors // redux from จะจัดการโดยการส่ง error ไปให้ Field
 }
 function mapStateToProps({ orders }) {
-    if (orders && orders.id) {
+    if (orders && orders._id) {
         return { initialValues: orders }
     }
     else {

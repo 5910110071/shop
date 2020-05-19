@@ -18,7 +18,7 @@ class UpdateTrackingNumber extends Component {
     onSubmit(formValues) {
         //formValues.status = "ชำระเงินแล้ว"
         console.log("formValues", formValues)
-        this.props.ordersPaymentPut(formValues.id, formValues)
+        this.props.ordersPaymentPut(formValues._id, formValues)
         //this.props.orderPaymentDelete(formValues.id)
     }
     render() {

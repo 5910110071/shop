@@ -32,7 +32,7 @@ class Order extends Component {
                     <>{
                         order.confirm && <div key={order.product_id} class="col-3 text-right text-success title mt-3">
                             <div class="card border border-danger" >
-                                <img src={order.product.product_thumbnail} class="card-img-top" alt="..." />
+                                <img src={order.product.product_image} class="card-img-top" alt="..." />
                                 <div class=" mt-2 ml-2 mr-2">
                                     <h5 className="text-center title ">{order.product.product_name}</h5>
                                     <h5 className="text-center title ">จำนวน : {order.quantity}</h5>
@@ -54,7 +54,8 @@ class Order extends Component {
     confirmOrder() {
         const { totalPrice, orders } = this.props.orderBuffer
         if (orders && orders.length > 0) {
-            this.props.ordersPost(this.props.orderBuffer)
+            //this.props.orderBuffer.user_name = this.props.user.user_name
+            this.props.ordersPost(this.props.orderBuffer , this.props.user)
         }
     }
 

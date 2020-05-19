@@ -61,7 +61,7 @@ class RegisterForm extends Component {
                             </div>
                         </>
                     } */}
-
+ 
                     <form onSubmit={this.props.handleSubmit(onPaymentSubmit)}>
                         {this.renderFields(RegisterFormFields)}
                         <div className="d-flex justify-content-end">

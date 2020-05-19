@@ -1,8 +1,13 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { reduxForm, Field } from "redux-form"
+
 import FormField from "../../components/FormField"
+import UploadFile from "../../components/UploadFile"
+
 import { orderFormField } from "./OrderFormFields"
+
+
 class PaymentForm extends Component {
 
     renderFields(orderFormField) {
@@ -15,7 +20,8 @@ class PaymentForm extends Component {
 
     }
     showOrders() {
-        //console.log("this.props.orders", this.props.orderPayment)
+        
+
         const date = new Date(this.props.orders.orderDate)
         return (
             // <div className="col-md-12">
@@ -42,7 +48,7 @@ class PaymentForm extends Component {
                         {this.props.orders.orders && this.props.orders.orders.map(record => {
                             return (
                                 <div key={record.product.product_id} className="col-2 d-flex flex-column bd-highlight mb-2">
-                                    <img src={record.product.product_thumbnail} class="card-img-top img-thumbnail mb-2  rounded mx-auto d-block" Style="width: 100px;" alt="..." />
+                                    <img src={record.product.product_image} class="card-img-top img-thumbnail mb-2  rounded mx-auto d-block" Style="width: 100px;" alt="..." />
                                     <h6 className="text-center title ">{record.product.product_name}</h6>
                                     <h6 className="text-center title ">จำนวน : {record.quantity}</h6>
                                     <h6 className="text-center title ">ราคา : {record.product.product_price * record.quantity} บาท</h6>
@@ -62,6 +68,7 @@ class PaymentForm extends Component {
         )
     }
     render() {
+        
         const { onPaymentSubmit } = this.props
         return (
             <div className="container card  mb-3">
@@ -75,8 +82,9 @@ class PaymentForm extends Component {
                             <div className="col-6 ">
                                 <form onSubmit={this.props.handleSubmit(onPaymentSubmit)}>
                                     {this.renderFields(orderFormField)}
+                                    <Field component={UploadFile} label = "อัพโหลดหลักฐานการชำระเงิน" name='image' accept='.png , .jpg'/>
                                     <div className="d-flex justify-content-end">
-                                        <button className="btn  btn-danger title mb-3 " type="submit" >บันทึก</button>
+                                        <button className="btn  btn-danger title mb-3 " type="submit" required ="true" >บันทึก</button>
                                     </div>
                                 </form>
                             </div>
@@ -100,7 +108,7 @@ function validate(values) {
     return errors // redux from จะจัดการโดยการส่ง error ไปให้ Field
 }
 function mapStateToProps({ orders }) {
-    if (orders && orders.id) {
+    if (orders && orders._id) {
         return { initialValues: orders }
     }
     else {

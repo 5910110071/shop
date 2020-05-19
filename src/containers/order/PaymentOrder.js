@@ -11,20 +11,16 @@ class PaymentOrder extends Component {
         super(props)
     }
     componentDidMount() {
-        this.props.ordersWaitPaymentFetch()
-
-
-
-
-
+        this.props.ordersWaitPaymentFetch(this.props.user.id)
     }
     onSubmit(id) {
-        this.props.orderPaidDelete(id)
+        this.props.orderPaidDelete(id,this.props.user.id)
     }
 
     showOrders() {
         console.log("bbb", this.props.orders)
         return this.props.orders && Array.isArray(this.props.orders) && this.props.orders.map(order => {
+            
             const date = new Date(order.orderDate)
             return (
                 <div key={order.id} className="col-md-12 ">
@@ -32,9 +28,10 @@ class PaymentOrder extends Component {
                         <h5 className="text-center mt-3 mb-3 ">รายการสั่งซื้อวันที่ {date.toLocaleDateString()} {date.toLocaleTimeString()}</h5>
                         <div className="row d-flex justify-content-center">
                             {order.orders && order.orders.map(record => {
+                                
                                 return (
                                     <div key={record.product.product_id} className="col-2 d-flex flex-column bd-highlight mb-2" >
-                                        <img src={record.product.product_thumbnail} class=" card-img-top img-thumbnail mb-2  rounded mx-auto d-block " Style="width: 100px;" alt="..." />
+                                        <img src={record.product.product_image} class=" card-img-top img-thumbnail mb-2  rounded mx-auto d-block " Style="width: 100px;" alt="..." />
                                         <h6 className="text-center title ">{record.product.product_name}</h6>
                                         <h6 className="text-center title ">จำนวน : {record.quantity}</h6>
                                         <h6 className="text-center title ">ราคา : {record.product.product_price * record.quantity} บาท</h6>
@@ -46,9 +43,9 @@ class PaymentOrder extends Component {
                         <h5 className="title text-center text-danger mb-3">ยอดรวม {order.totalPrice} บาท </h5>
                         <div className="d-flex justify-content-center">
 
-                            <button className="btn btn-secondary title mr-2 mb-3" onClick={() => this.onSubmit(order.id)}>ยกเลิกรายการ</button>
-                            <button className="btn btn-danger title mr-2 mb-3" onClick={() => this.props.history.push('/paymentOrderConfirm/' + order.id)}>แจ้งชำระเงิน</button>
-
+                            <button className="btn btn-secondary title mr-2 mb-3" onClick={() => this.onSubmit(order._id)}>ยกเลิกรายการ</button>
+                            <button className="btn btn-danger title mr-2 mb-3" onClick={() => this.props.history.push('/paymentOrderConfirm/' + order._id)}>แจ้งชำระเงิน</button>
+ 
                         </div>
 
 
@@ -80,7 +77,8 @@ class PaymentOrder extends Component {
         )
     }
 }
-function mapStateToprops({ orders }) {
-    return { orders }
+function mapStateToprops({ orders ,user }) {
+    console.log("user",user)
+    return { orders , user }
 }
 export default withRouter(connect(mapStateToprops, { ordersWaitPaymentFetch, ordersReset, orderPaidDelete })(PaymentOrder))

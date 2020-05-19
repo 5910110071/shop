@@ -12,13 +12,17 @@ class PaymentMornitor extends Component {
         super(props)
     }
     componentDidMount() {
-        this.props.ordersPaidFetch()
+        //version1
+        //this.props.ordersPaidFetch()
+
+        //version2
+        this.props.ordersPaidFetch(this.props.user.id)
     }
 
-    changeStatus(order, status) {
+    changeStatus(order, status ,uid) {
         console.log("order", order)
         order.status = status
-        this.props.ordersPaymentStatusPut(order.id, order)
+        this.props.ordersPaymentStatusPut(order._id, order ,uid)
 
     }
 
@@ -35,7 +39,7 @@ class PaymentMornitor extends Component {
                                 return (
                                     <div key={record.product.product_id} className="col-2 d-flex flex-column bd-highlight mb-2">
 
-                                        <img src={record.product.product_thumbnail} class="card-img-top img-thumbnail mb-2  rounded mx-auto d-block" Style="width: 100px;" alt="..." />
+                                        <img src={record.product.product_image} class="card-img-top img-thumbnail mb-2  rounded mx-auto d-block" Style="width: 100px;" alt="..." />
                                         <h6 className="text-center title ">{record.product.product_name}</h6>
                                         <h6 className="text-center title ">จำนวน : {record.quantity}</h6>
                                         <h6 className="text-center title ">ราคา : {record.product.product_price * record.quantity} บาท</h6>
@@ -50,14 +54,14 @@ class PaymentMornitor extends Component {
                             <p>ชื่อ : {order.Name}</p>
                             <p>ที่อยู่ : {order.Address} </p>
                             <p>เบอร์โทร์ : {order.Tel}</p>
-                            <p>หลักฐานการโอน : {order.Silp}</p>
+                            <p>หลักฐานการโอน : <img src ={order.Silp}/></p>
                             <p>สถานะ : {order.status}
 
 
                             </p>
 
 
-                            <button type="button" class={order.status == "สินค้ากำลังจัดส่ง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => this.props.history.push('/UpdateTrackingNumber/' + order.id)}>
+                            <button type="button" class={order.status == "สินค้ากำลังจัดส่ง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => this.props.history.push('/UpdateTrackingNumber/' + order._id)}>
                                 เพิ่มหมายเลขติดตามสินค้า
                                 </button>
                             <p>หมายเลขติดตามสินค้า : {order.TrackingNumber} </p>
@@ -68,9 +72,9 @@ class PaymentMornitor extends Component {
                         </div>
                         <div class="btn-group dropup mb-2 ">
 
-                            <button type="button" class={order.status == "ข้อมูลการชำระเงินถูกต้อง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => this.changeStatus(order, "ข้อมูลการชำระเงินถูกต้อง")}>ข้อมูลการชำระเงินถูกต้อง</button>
-                            <button type="button" class={order.status == "สินค้ากำลังจัดส่ง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => this.changeStatus(order, "สินค้ากำลังจัดส่ง")}>สินค้ากำลังจัดส่ง</button>
-                            <button type="button" class={order.status == "สินค้าจัดส่งสำเร็จ" ? "btn btn-success ml-2 mr-2 " : "btn btn-secondary ml-2 mr-2"} onClick={() => this.changeStatus(order, "สินค้าจัดส่งสำเร็จ")}>สินค้าจัดส่งสำเร็จ</button>
+                            <button type="button" class={order.status == "ข้อมูลการชำระเงินถูกต้อง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => this.changeStatus(order, "ข้อมูลการชำระเงินถูกต้อง",this.props.user.id)}>ข้อมูลการชำระเงินถูกต้อง</button>
+                            <button type="button" class={order.status == "สินค้ากำลังจัดส่ง" ? "btn btn-success ml-2 " : "btn btn-secondary ml-2"} onClick={() => this.changeStatus(order, "สินค้ากำลังจัดส่ง",this.props.user.id)}>สินค้ากำลังจัดส่ง</button>
+                            <button type="button" class={order.status == "สินค้าจัดส่งสำเร็จ" ? "btn btn-success ml-2 mr-2 " : "btn btn-secondary ml-2 mr-2"} onClick={() => this.changeStatus(order, "สินค้าจัดส่งสำเร็จ",this.props.user.id)}>สินค้าจัดส่งสำเร็จ</button>
                         </div>
                     </div>
                 </div>
@@ -93,8 +97,8 @@ class PaymentMornitor extends Component {
         )
     }
 }
-function mapStateToprops({ orders }) {
+function mapStateToprops({ orders , user }) {
     console.log("payments", orders)
-    return { orders }
+    return { orders , user }
 }
 export default withRouter(connect(mapStateToprops, { ordersPaidFetch, ordersReset, ordersPaymentStatusPut })(PaymentMornitor))
