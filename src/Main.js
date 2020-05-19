@@ -71,11 +71,6 @@ class Main extends Component {
 
     render() {
 
-        //this.props.getUser(this.props.user.id)
-
-
-
-        console.log("this.props.user", this.props.user)
         return (
             <div >
                 {/* <Login/> */}
