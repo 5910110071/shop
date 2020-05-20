@@ -23,8 +23,16 @@ class Order extends Component {
     }
 
     showOrders2(orders) {
-        if (!orders || orders.length == 0 && !this.props.orderBuffer.saved) {
-            return <h4 className=" text-muted title col-12 text-right text-center">ยังไม่ได้เลือกสินค้า</h4>
+        if (this.props.orderBuffer.totalPrice == 0) {
+            return <div className="container">
+                <div class="alert alert-danger text-center " role="alert">
+                    <h4 className="title col-12 text-right text-center">ไม่มีสินค้าในตะกร้า</h4>
+                    <button className="btn btn-success title">ไปยังหน้าสินค้า</button>
+                </div>
+            </div>
+
+
+
 
         } else {
             return orders.map(order => {
@@ -55,11 +63,12 @@ class Order extends Component {
         const { totalPrice, orders } = this.props.orderBuffer
         if (orders && orders.length > 0) {
             //this.props.orderBuffer.user_name = this.props.user.user_name
-            this.props.ordersPost(this.props.orderBuffer , this.props.user)
+            this.props.ordersPost(this.props.orderBuffer, this.props.user)
         }
     }
 
     render() {
+        console.log("this.props.orderBuffer", this.props.orderBuffer)
         return (
             <div>
                 <Header menu={this.props.match.path} />
@@ -75,7 +84,7 @@ class Order extends Component {
                         {this.showOrders2(this.props.orderBuffer.orders)}
                     </div>
 
-                    {!this.props.orderBuffer.saved &&
+                    {this.props.orderBuffer.totalPrice > 0 &&
                         <>
                             <h4 className="text-center mt-3 text-danger"> ยอดรวม : {this.props.orderBuffer.totalPrice} บาท</h4>
                             <div className="d-flex justify-content-center">
@@ -90,8 +99,8 @@ class Order extends Component {
     }
 
 }
-function mapStateToProps({ orderBuffer , user }) {
-    console.log("orders", orderBuffer ,user)
-    return { orderBuffer ,user }
+function mapStateToProps({ orderBuffer, user }) {
+    console.log("orders", orderBuffer, user)
+    return { orderBuffer, user }
 }
 export default connect(mapStateToProps, { ordersFetch, orderDelete, ordersPost, orderCancel })(Order)

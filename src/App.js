@@ -32,7 +32,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div >
         <BrowserRouter>{this.renderRouter()}</BrowserRouter>
       </div>
     );

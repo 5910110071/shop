@@ -7,7 +7,7 @@ class Monitor extends Component {
         super(props);
     }
     componentDidMount() {
-        console.log("this.props.match", this.props.match.path)
+        //console.log("this.props.match", this.props.match.path)
 
     }
 
@@ -17,7 +17,7 @@ class Monitor extends Component {
     }
 
     showProducts() {
-        console.log("this.props.products", this.props.products);
+        //console.log("this.props.products", this.props.products);
         return (
             (this.props.products && Array.isArray(this.props.products)) &&
             this.props.products.map(product => (
@@ -39,9 +39,9 @@ class Monitor extends Component {
         return (
             <div className="container pt-3 " style={{ minHeight: '79vh', backgroundColor: '#f5f5f5' }}>
                 <h2 className="text-center">รายการสินค้า</h2>
-                <div className="row">
-                    <div className="col-md-12">
-                        <div className="row">
+                <div className="row ">
+                    <div className="col-md-12 ">
+                        <div className="row justify-content-center">
                             {this.showProducts()}
                         </div>
                     </div>
