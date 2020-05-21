@@ -61,7 +61,7 @@ class Main extends Component {
             })
             console.log("this.state", this.state)
             if (user) {
-                console.log("this.props.getUser")
+                console.log("user" , user)
                 this.props.getUser(user.uid)
             }
             else {
@@ -111,7 +111,7 @@ class Main extends Component {
                             )}
                         {(this.props.user == null && this.state.user != null) &&
                             <div>
-                                <Register user_id={this.state.user.uid} />
+                                <Register user_id={this.state.user.uid} user_image = {this.state.user.photoURL} />
                             </div>
                         }
                     </div>

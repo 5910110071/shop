@@ -1,46 +1,22 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { reduxForm, Field } from "redux-form"
-
 import FormField from "../../components/FormField"
-import UploadFile from "../../components/UploadFile"
+import { UpdateTrackNumberFormFields } from "./UpdateTrackNumberFormFields"
+class UpdateTrackingNumberForm extends Component {
 
-import { orderFormField } from "./OrderFormFields"
+    renderFields(UpdateTrackNumberFormFields) {
 
-
-class PaymentForm extends Component {
-
-    renderFields(orderFormField) {
-
-        return orderFormField.map(({ label, name, type, required }) => {
+        return UpdateTrackNumberFormFields.map(({ label, name, type, required }) => {
             return (
                 <Field key={name} label={label} name={name} type={type} required={required} component={FormField} />
             )
         })
-
     }
-    showOrders() {
-        
 
+    showOrders() {
         const date = new Date(this.props.orders.orderDate)
         return (
-            // <div className="col-md-12">
-
-            //     <hr />
-            //     <h5>วันที่ {date.toLocaleDateString()} {date.toLocaleTimeString()}</h5>
-            //     <ul>
-            //         {this.props.orderPayment.orders && this.props.orderPayment.orders.map(record => {
-            //             return (
-            //                 <div key={record.product.product_id}>
-            //                     <img src={record.product.product_thumbnail} class="card-img-top img-thumbnail mb-2 mr-2 " Style="width: 100px;" alt="..." />{record.product.product_name} x {record.quantity} = {record.product.product_price * record.quantity}
-            //                 </div>
-            //             )
-            //         })}
-            //     </ul>
-            //     <p className="title text-right">ยอมรวม {this.props.orderPayment.totalPrice}</p>
-
-            // </div>
-
             <div className="col-md-12">
                 <div className=" mb-4">
                     <h5 className="text-center mt-3 mb-3">รายการสั่งซื้อวันที่ {date.toLocaleDateString()} {date.toLocaleTimeString()}</h5>
@@ -61,17 +37,13 @@ class PaymentForm extends Component {
                     <h5 className="title text-center text-danger mb-3">ยอดรวม {this.props.orders.totalPrice} บาท </h5>
                 </div>
             </div>
-
-
-
-
         )
     }
+
     render() {
-        
         const { onPaymentSubmit } = this.props
         return (
-            <div className="container card  mb-3">
+            <div className="container card  mb-3 ">
                 <div className="row d-flex justify-content-center" >
                     {this.props.orders.saved ?
                         <div class="alert alert-success text-center col-12" role="alert">
@@ -81,10 +53,9 @@ class PaymentForm extends Component {
 
                             <div className="col-6 ">
                                 <form onSubmit={this.props.handleSubmit(onPaymentSubmit)}>
-                                    {this.renderFields(orderFormField)}
-                                    <Field component={UploadFile} label = "อัพโหลดหลักฐานการชำระเงิน" name='image' accept='.png , .jpg'/>
+                                    {this.renderFields(UpdateTrackNumberFormFields)}
                                     <div className="d-flex justify-content-end">
-                                        <button className="btn  btn-danger title mb-3 " type="submit" required ="true" >บันทึก</button>
+                                        <button className="btn  btn-danger title mb-3 " type="submit" >บันทึก</button>
                                     </div>
                                 </form>
                             </div>
@@ -100,7 +71,7 @@ class PaymentForm extends Component {
 function validate(values) {
     console.log("values", values)
     const errors = {};
-    orderFormField.forEach(({ name, required }) => {
+    UpdateTrackNumberFormFields.forEach(({ name, required }) => {
         if (!values[name] && required) {
             errors[name] = 'กรุณากรอกข้อมูล'
         }
@@ -117,5 +88,5 @@ function mapStateToProps({ orders }) {
 
 }
 
-PaymentForm = reduxForm({ validate, form: "paymentForm" })(PaymentForm)
-export default connect(mapStateToProps)(PaymentForm)
+UpdateTrackingNumberForm = reduxForm({ validate, form: "TrackingNumberForm" })(UpdateTrackingNumberForm)
+export default connect(mapStateToProps)(UpdateTrackingNumberForm)

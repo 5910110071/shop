@@ -4,7 +4,7 @@ export default function (state = { totalPrice: 0, orders: [], confirm: false, ms
 
         case ORDERS_WAIT_PAYMENT:
             // console.log("action.payload", action.payload)
-            // let resultOrder2 = action.payload.data.filter(order => (order.status == "รอชำระเงิน" && order.user_id == action.payload.id)); // ของใหม่อาจจะต้องแก้
+            let resultOrder2 = action.payload.filter(order => (order.status == "รอชำระเงิน" )); // ของใหม่อาจจะต้องแก้
 
             // //let resultOrder2 = action.payload.filter(order => order.status == "รอชำระเงิน"); ของเก่าอาจจะต้องเปลี่ยนเป็น Get ตาม user_id เลย
 
@@ -12,7 +12,7 @@ export default function (state = { totalPrice: 0, orders: [], confirm: false, ms
             // if (resultOrder2)
             //     return resultOrder2
             // else
-                return action.payload
+                return resultOrder2
         // return action.payload
 
         case ORDERS_PAID:
@@ -25,9 +25,9 @@ export default function (state = { totalPrice: 0, orders: [], confirm: false, ms
             return action.payload
 
         case ORDERS_PAID_DELETE:
-            // let resultOrder4 = action.payload.data.filter(order => (order.status == "รอชำระเงิน" && order.user_id == action.payload.id));
+            let resultOrder4 = action.payload.filter(order => (order.status == "รอชำระเงิน"));
             // //let resultOrder4 = action.payload.filter(order => order.status == "รอชำระเงิน"); ของเก่าอาจจะต้องเปลี่ยนเป็น Get ตาม user_id เลย
-            return action.payload
+            return resultOrder4
 
         case ORDERS_PAYMENT:
             return { totalPrice: 0, orders: [], saved: true, msg: "บันทึกสินค้าเรียบร้อย" }

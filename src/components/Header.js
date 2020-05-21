@@ -96,7 +96,7 @@ class Header extends Component {
                       <Link className={this.props.menu === "/" ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/"><h7>สินค้า</h7> <span class="sr-only">(current)</span></Link>
                     </li>
                     <li class="nav-item active">
-                      <Link className={this.props.menu === "/order" ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/order"><h7>ตะกร้า</h7> <span class="sr-only">(current)</span></Link>
+                      <Link className={this.props.menu === "/basket" ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/basket"><h7>ตะกร้า</h7> <span class="sr-only">(current)</span></Link>
                     </li>
 
 
@@ -105,11 +105,11 @@ class Header extends Component {
                   </li>  */}
 
                     <li class="nav-item active">
-                      <Link className={(this.props.menu === "/paymentOrder" || this.props.menu.includes("paymentOrderConfirm")) ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/paymentOrder"><h7>แจ้งชำระเงิน</h7> <span class="sr-only">(current)</span></Link>
+                      <Link className={(this.props.menu === "/waitPayment" || this.props.menu.includes("paymentNotification")) ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/waitPayment"><h7>แจ้งชำระเงิน</h7> <span class="sr-only">(current)</span></Link>
                     </li>
 
                     <li class="nav-item active">
-                      <Link className={this.props.menu === "/paymentMornitor" ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/paymentMornitor"><h7>ตรวจสอบรายการสั่งซื้อ</h7><span class="sr-only">(current)</span></Link>
+                      <Link className={this.props.menu === "/paid" ? "nav-link title card mr-2" : "nav-link title mr-2"} to="/paid"><h7>ตรวจสอบรายการสั่งซื้อ</h7><span class="sr-only">(current)</span></Link>
                     </li>
 
                     {this.props.showCategoryAndSearch &&
