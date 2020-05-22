@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import { reduxForm, Field } from "redux-form"
 import FormField from "../../components/FormField"
 import { CommentFormFields } from "./CommentFormFields"
-class CommentForm extends Component {
+class RegisterForm extends Component {
 
     renderFields(CommentFormFields) {
 
@@ -17,16 +17,15 @@ class CommentForm extends Component {
     render() {
         const { onCommentSubmit } = this.props
         return (
-            <div className="container mb-3 card">
+            <div className="container mb-3">
                 <div className="row d-flex justify-content-center " >
                     <form onSubmit={this.props.handleSubmit(onCommentSubmit)}>
-                        <h2 className = "mt-3">ลงทะเบียนเข้าใช้งาน</h2>
+                        <h2 className = "mt-3">แสดงความคิดเห็น</h2>
                         {this.renderFields(CommentFormFields)}
                         <div className="">
                             <button className="btn btn-block  btn-danger title mb-4 mt-4 " type="submit" >บันทึก</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         )
@@ -44,5 +43,15 @@ function validate(values) {
     return errors // redux from จะจัดการโดยการส่ง error ไปให้ Field
 }
 
-CommentForm = reduxForm({ validate, form: "commentForm" })(CommentForm)
-export default CommentForm
+function mapStateToProps({ orders }) {
+    // if (orders && orders.id) {
+    //     return { initialValues: orders }
+    // }
+    // else {
+    //     return {}
+    // }
+    return { orders }
+}
+
+RegisterForm = reduxForm({ validate, form: "commentForm" })(RegisterForm)
+export default connect(mapStateToProps)(RegisterForm)

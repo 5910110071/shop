@@ -1,17 +1,81 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom"
+import { connect } from "react-redux"
+import Rating from '@material-ui/lab/Rating';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+
+
+import StarRatingComponent from 'react-star-rating-component';
+
+
+import { productFetch, orderAdd, orderDelete, orderConfirm, ratingFetch2 } from "../../actions"
 
 class ShowDetail extends Component {
     constructor(props) {
         super(props)
-    }
-    render() {
-
-        const { products, onCheckQuantity , onGetQuantity , onDelOrder , onAddOrder , onOrderConfirm } = this.props
         
-        console.log("this.props.products", products)
+    }
+    onStarClick(nextValue, prevValue, name) {
+        this.setState({ rating: nextValue });
+    }
+
+    // componentDidMount() {
+    //     if (this.props.match.params.id) {
+    //         this.props.productFetch(this.props.match.params.id)
+    //     }
+    // }
+    componentDidMount() {
+        //if (this.props.rating != {} || this.props.rating != null) {
+        this.props.ratingFetch2(this.props.product_id)
+        console.log("componentDidMount", this.props.rating)
+        //}
+    }
+
+    addOrder(product) {
+        if (this.getQuantity(product) < product.product_inventory)
+            this.props.orderAdd(product)
+    }
+
+    delOrder(id) {
+        let findOrder = this.props.orderBuffer.orders.find(order => order.product.product_id == id);
+        if (findOrder) {
+            this.props.orderDelete(id)
+        }
+    }
+
+    getQuantity(product) {
+        let findOrder = this.props.orderBuffer.orders.find(order => order.product.product_id == product.product_id);
+        if (findOrder) {
+            return findOrder.quantity;
+        } else {
+            return 0
+        }
+    }
+
+    checkQuantity(product) {
+        console.log("checkQuantity(product)", product)
+        let findOrder = this.props.orderBuffer.orders.find(order => order.product.product_id == product.product_id);
+        console.log("findOrder", findOrder)
+
+        if (findOrder) {
+            console.log("here")
+            if (findOrder.quantity == 0) {
+
+            }
+        }
+        else {
+            console.log("here2")
+            this.addOrder(product)
+        }
+    }
+
+    render() {
+        console.log("this.props.rating",this.props.rating)
+        const { products } = this.props
+
         if (products != null) {
-            onCheckQuantity(products)
+            this.checkQuantity(products)
         }
         return (
             <div className="container" >
@@ -31,23 +95,34 @@ class ShowDetail extends Component {
                             <div className="container input-group d-flex justify-content-end   ">
                                 <h5 className="text-right mr-2">จำนวน :  </h5>
                                 <span class="input-group-btn ">
-                                    <button type="button" class="quantity-left-minus btn btn-secondary btn-number" data-type="minus" data-field="" onClick={() => onDelOrder(products.product_id)}>
+                                    <button type="button" class="quantity-left-minus btn btn-secondary btn-number" data-type="minus" data-field="" onClick={() => this.delOrder(products.product_id)}>
                                         <span class="glyphicon glyphicon-minus">-</span>
                                     </button>
                                 </span>
-                                <input type="text" id="quantity" name="quantity" class="form-control input-number col-1 text-center" value={onGetQuantity(products)} min="1" max="10" />
+                                <input type="text" id="quantity" name="quantity" class="form-control input-number col-1 text-center" value={this.getQuantity(products)} min="1" max="10" />
                                 <span class="input-group-btn">
-                                    <button type="button" class="quantity-right-plus btn btn-secondary btn-number mr-2" data-type="plus" data-field="" onClick={() => onAddOrder(products)}>
+                                    <button type="button" class="quantity-right-plus btn btn-secondary btn-number mr-2" data-type="plus" data-field="" onClick={() => this.addOrder(products)}>
                                         <span class="glyphicon glyphicon-plus">+</span>
                                     </button>
                                 </span>
                             </div>
                             <div className=" mr-4 mt-3 d-flex justify-content-end">
-                                <button className="btn btn-danger" onClick={() => onOrderConfirm(products)}>เพิ่มลงตะกร้า </button>
+                                <button className="btn btn-danger" onClick={() => this.props.orderConfirm(products)}>เพิ่มลงตะกร้า </button>
                             </div>
                             <div className=" btn d-flex justify-content-end bd-highlight mb-3 mr-5" onClick={() => this.props.history.push('/basket/')}>
                                 <img src="https://cdn1.iconfinder.com/data/icons/ecommerce-1-9/48/2-512.png" class="mt-2" Style="width: 50px;" alt="..." />
                             </div>
+
+
+
+                            {(this.props.rating != null) &&
+                                < StarRatingComponent
+                                    name="rate1"
+                                    starCount={10}
+                                    value={this.props.rating.average}
+                                    onStarClick={this.onStarClick.bind(this)}
+                                />
+                            }
                         </div>
                     </div>
                 </div>
@@ -55,4 +130,12 @@ class ShowDetail extends Component {
         )
     }
 }
-export default withRouter(ShowDetail)
+
+
+
+function mapStateToProps({ orderBuffer, rating }) {
+    console.log("products")
+    return { orderBuffer, rating }
+}
+
+export default withRouter(connect(mapStateToProps, { orderAdd, orderDelete, orderConfirm, ratingFetch2 })(ShowDetail))
