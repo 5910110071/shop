@@ -11,6 +11,7 @@ import Footer from "../../components/Footer"
 class Product extends Component {
     
     componentDidMount() {
+        console.log("this.props.match.params",this.props.match.params)
         if (this.props.match.params.id) {
             this.props.productFetch(this.props.match.params.id)
         }
@@ -22,7 +23,7 @@ class Product extends Component {
             <div>
                 <Header menu={this.props.match.path} />
                 <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
-                    <ShowDetail products={this.props.products} product_id = {this.props.match.params.id}/>
+                    <ShowDetail products={this.props.products} product_id = {this.props.match.params.id} saleman_id = {this.props.match.params.id2} />
                     <UserComment product_id = {this.props.match.params.id} comments = {this.props.comments} />
                     <Comment product_id = {this.props.match.params.id} />
                 </div>>

@@ -14,7 +14,10 @@ import { productFetch, orderAdd, orderDelete, orderConfirm, ratingFetch2 } from 
 class ShowDetail extends Component {
     constructor(props) {
         super(props)
-        
+        this.state = {
+            rating: 1
+        }
+
     }
     onStarClick(nextValue, prevValue, name) {
         this.setState({ rating: nextValue });
@@ -71,8 +74,9 @@ class ShowDetail extends Component {
     }
 
     render() {
-        console.log("this.props.rating",this.props.rating)
+        console.log("this.props.rating", this.props.rating)
         const { products } = this.props
+        const { rating } = this.state;
 
         if (products != null) {
             this.checkQuantity(products)
@@ -107,7 +111,7 @@ class ShowDetail extends Component {
                                 </span>
                             </div>
                             <div className=" mr-4 mt-3 d-flex justify-content-end">
-                                <button className="btn btn-danger" onClick={() => this.props.orderConfirm(products)}>เพิ่มลงตะกร้า </button>
+                                <button className="btn btn-danger" onClick={() => this.props.orderConfirm(products, this.props.saleman_id)}>เพิ่มลงตะกร้า </button>
                             </div>
                             <div className=" btn d-flex justify-content-end bd-highlight mb-3 mr-5" onClick={() => this.props.history.push('/basket/')}>
                                 <img src="https://cdn1.iconfinder.com/data/icons/ecommerce-1-9/48/2-512.png" class="mt-2" Style="width: 50px;" alt="..." />
@@ -118,8 +122,9 @@ class ShowDetail extends Component {
                             {(this.props.rating != null) &&
                                 < StarRatingComponent
                                     name="rate1"
-                                    starCount={10}
+                                    starCount={5}
                                     value={this.props.rating.average}
+                                    renderStarIcon={() => <h1>★</h1>}
                                     onStarClick={this.onStarClick.bind(this)}
                                 />
                             }
