@@ -118,16 +118,18 @@ class ShowDetail extends Component {
                             </div>
 
 
+                            <div className = "d-flex justify-content-center">
+                                {(this.props.rating != null) &&
+                                    < StarRatingComponent
+                                        name="rate1"
+                                        starCount={5}
+                                        value={this.props.rating.average}
+                                        renderStarIcon={() => <h1>★</h1>}
+                                        onStarClick={this.onStarClick.bind(this)}
+                                    />
+                                }
+                            </div>
 
-                            {(this.props.rating != null) &&
-                                < StarRatingComponent
-                                    name="rate1"
-                                    starCount={5}
-                                    value={this.props.rating.average}
-                                    renderStarIcon={() => <h1>★</h1>}
-                                    onStarClick={this.onStarClick.bind(this)}
-                                />
-                            }
                         </div>
                     </div>
                 </div>
